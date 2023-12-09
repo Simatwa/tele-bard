@@ -13,7 +13,7 @@ bot = telebot.TeleBot(get_key('telebot'))
 
 def generate_response(text):
 	try:
-		return bard.ask(text)
+		return bard.ask(text).get('content')
 	except Exception as e:
 		return e.args[1] if len(e.args) >1 else e
 		
