@@ -1,0 +1,3 @@
+pytelegrambotapi
+dotenv
+GoogleBard==1.4.0
