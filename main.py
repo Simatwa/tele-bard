@@ -12,12 +12,14 @@ bard = Chatbot(get_key("bard"))
 
 bot = telebot.TeleBot(get_key("telebot"))
 
-default_user_id = get_key("userId")
+allowed_user_ids = get_key("userId").split(',')
 
 
 def is_verified(message):
     """Ensures it serves the right user"""
-    return str(message.from_user.id) == default_user_id
+    for id in allowed_user_ids:
+        if str(message.from_user.id) == id:
+            return True
 
 
 def anonymous_user(message):
