@@ -25,7 +25,7 @@ pip install -r requirements.txt
 
 Get bard session from https://bard.google.com as detailed in [GoogleBard](https://github.com/acheong08/bard).
 
-Create a Telegram bot using (BotFather)[https://telegram.me/BotFather] in order to obtain a **Bot Token**.
+Create a Telegram bot using [BotFather](https://telegram.me/BotFather) in order to obtain a **Bot Token**.
 
 Use those credentials to fill the [env](env) file and rename the file to `.env`
 
