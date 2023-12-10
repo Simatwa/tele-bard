@@ -40,5 +40,5 @@ Send `/myId` for the bot to reply you with your **user_id** and then include the
 - For hosting I recommend hosting with [pythonanywhere.com](https://pythonanywhere.com)
 
 <p align="center">
-Made with love
+Made with ❤️
 </p>
