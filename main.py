@@ -60,6 +60,8 @@ def display_help(message):
 	/start or /help : Show this messsage
 	
 	/myId : Check your Telegram's ID
+    /img : Generate image with BingImageCreator
+    /imgl : Generate image but send the links only
 	/reset : Start new conversation
 	
 	Any other text interacts with Bard.
@@ -96,17 +98,7 @@ def user_id(message):
         parse_mode="Markdown",
     )
 
-
-@bot.message_handler(func=lambda m: True)
-def chat_with_bard(message):
-    """Generate response with Bard"""
-    if is_verified(message):
-        bot.reply_to(message, generate_response(message.text), parse_mode="Markdown")
-    else:
-        bot.reply_to(message, anonymous_user(message), parse_mode="Markdown")
-
-
-@bot.message_handler(commands=['img_link'])
+@bot.message_handler(commands=['imgl'])
 def generate_image_with_bing(message):
     if not is_verified:
         bot.reply_to(message, anonymous_user(message))
@@ -150,6 +142,16 @@ def generate_image_with_bing(message):
             bot.reply_to(message, 'Failed to generate images')
     except Exception as e:
         bot.reply_to(message, "Failed - %s"%(format_exception(e)))
+
+
+@bot.message_handler(func=lambda m: True)
+def chat_with_bard(message):
+    """Generate response with Bard"""
+    if is_verified(message):
+        bot.reply_to(message, generate_response(message.text), parse_mode="Markdown")
+    else:
+        bot.reply_to(message, anonymous_user(message), parse_mode="Markdown")
+
 
 @bot.callback_query_handler(func=lambda message: True)
 def callback_query(call):
