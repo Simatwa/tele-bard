@@ -15,11 +15,12 @@ bard = Chatbot(get_key("bard"))
 
 bot = telebot.TeleBot(get_key("telebot"))
 
-allowed_user_ids = get_key("userId").split(',')
+allowed_user_ids = get_key("userId").split(",")
 
-bing = ImageGen(get_key('bing'))
+bing = ImageGen(get_key("bing"))
 
-format_exception = lambda e:e.args[1] if len(e.args)>1 else str(e)
+format_exception = lambda e: e.args[1] if len(e.args) > 1 else str(e)
+
 
 def is_verified(message):
     """Ensures it serves the right user"""
@@ -98,50 +99,61 @@ def user_id(message):
         parse_mode="Markdown",
     )
 
-@bot.message_handler(commands=['imgl'])
+
+@bot.message_handler(commands=["imgl"])
 def generate_image_with_bing(message):
     if not is_verified:
         bot.reply_to(message, anonymous_user(message))
-        return 
-    
+        return
+
     try:
         image_links = bing.get_images(message.text)
         if isinstance(list, image_links):
-            #Image generated
+            # Image generated
             for count, link in enumerate(image_links):
-                bot.send_message(message.chat.id, f"{count+1}. {link}",)
+                bot.send_message(
+                    message.chat.id,
+                    f"{count+1}. {link}",
+                )
         else:
-            bot.reply_to(message, 'Failed to generate images')
+            bot.reply_to(message, "Failed to generate images")
     except Exception as e:
-
         bot.reply_to(message, f"Failed - {format_exception(e)}")
 
-@bot.message_handler(commands=['img'])
+
+@bot.message_handler(commands=["img"])
 def generate_image_with_bing(message):
     if not is_verified:
         bot.reply_to(message, anonymous_user(message))
-        return 
-    
+        return
+
     try:
         image_links = bing.get_images(message.text)
         if isinstance(list, image_links):
-            #Image generated
+            # Image generated
             for img_url in image_links:
-                with open(BytesIO(),"wb") as buffer:
+                with open(BytesIO(), "wb") as buffer:
                     try:
                         img_content = bing.session.get(img_url).content
                         buffer.write(img_content)
-                        bot.send_photo(message.chat.id, buffer,img_url,)
+                        bot.send_photo(
+                            message.chat.id,
+                            buffer,
+                            img_url,
+                        )
                     except requests.exceptions.MissingSchema:
-                        bot.reply_to(message, "Inappropriate contents found in the generated images. Please try again or try another prompt.")
+                        bot.reply_to(
+                            message,
+                            "Inappropriate contents found in the generated images. Please try again or try another prompt.",
+                        )
                         break
                     except Exception as e:
                         bot.reply_to(message, format_exception(e))
 
         else:
-            bot.reply_to(message, 'Failed to generate images')
+            bot.reply_to(message, "Failed to generate images")
     except Exception as e:
-        bot.reply_to(message, "Failed - %s"%(format_exception(e)))
+        bot.reply_to(message, "Failed - %s" % (format_exception(e)))
 
 
 @bot.message_handler(func=lambda m: True)

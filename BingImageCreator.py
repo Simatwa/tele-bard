@@ -55,7 +55,7 @@ class ImageGen:
         # https://www.bing.com/images/create/async/results/{ID}?q={PROMPT}
         polling_url = f"{BING_URL}/images/create/async/results/{request_id}?q={url_encoded_prompt}"
         # Poll for results
-        #print(">[*] Waiting for results...", end="\r")
+        # print(">[*] Waiting for results...", end="\r")
         start_wait = time.time()
         while True:
             if int(time.time() - start_wait) > 300:
@@ -81,7 +81,7 @@ class ImageGen:
         """
         Saves images to output directory
         """
-       # print("\n>[*] Downloading images...", end="\r")
+        # print("\n>[*] Downloading images...", end="\r")
         try:
             os.makedirs(output_dir)
         except FileExistsError:
