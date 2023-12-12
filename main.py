@@ -61,8 +61,8 @@ def display_help(message):
 	/start or /help : Show this messsage
 	
 	/myId : Check your Telegram's ID
-    /img : Generate image with BingImageCreator
-    /imgl : Generate image but send the links only
+	/img : Generate image with BingImageCreator
+	/imgl : Generate image but send the links only
 	/reset : Start new conversation
 	
 	Any other text interacts with Bard.
